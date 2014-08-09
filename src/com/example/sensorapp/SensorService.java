@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -239,6 +240,7 @@ public class SensorService extends Service
 		@Override
 		public void onSensorChanged(SensorEvent event)
 		{
+
 			// 判断是否注册
 			if (GlobalVar.checkId)
 			{
@@ -257,7 +259,13 @@ public class SensorService extends Service
 			{
 				return;
 			}
-
+			//Log.e("zhurwO", String.valueOf(getResources().getConfiguration().orientation));
+			//判断横竖屏
+			
+			if(getResources().getConfiguration().orientation==Configuration.ORIENTATION_LANDSCAPE)
+			{
+				return;
+			}
 			// 屏蔽腾讯软件
 			ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 			List<RunningTaskInfo> tasksInfo = activityManager
