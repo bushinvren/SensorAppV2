@@ -8,6 +8,7 @@ import java.util.List;
 
 import android.app.KeyguardManager;
 import android.app.KeyguardManager.KeyguardLock;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,11 +17,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -91,7 +95,11 @@ public class EnterActivity extends SuperFragmentActivity implements
 		// km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
 		// kl = km.newKeyguardLock("mylockscreen");
 		// kl.disableKeyguard();
-
+		Log.e("isSupported", String.valueOf(HighTouchSensitivity.isSupported()));
+		if(HighTouchSensitivity.isSupported())
+		{
+			HighTouchSensitivity.setEnabled(true);
+		}
 		 getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);  
 	     getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);  
 		
@@ -154,6 +162,8 @@ public class EnterActivity extends SuperFragmentActivity implements
 
 	private void init()
 	{
+		
+
 		checkRegistry();
 		checkStartFlag();
 
@@ -283,7 +293,7 @@ public class EnterActivity extends SuperFragmentActivity implements
 	{
 		lockPageLayout.setVisibility(View.GONE);
 		mainPageFragment.unlock();
-
+		
 		showPagerLayer(true);
 	}
 
@@ -348,7 +358,7 @@ public class EnterActivity extends SuperFragmentActivity implements
 		}
 		currentPagerFlag = (ImageView) currentPage.getChildAt(current);
 		currentPagerFlag.setBackgroundResource(selector_drawable[1]);
-
+		
 	}
 
 	@Override

@@ -17,11 +17,14 @@ public class CustomViewPager extends ViewPager {
 	}
 
 	public CustomViewPager(Context context, AttributeSet attrs) {
+		
 		super(context, attrs);
+		
 	}
 
 	public void setCanScroll(boolean isCanScroll) {
 		this.isCanScroll = isCanScroll;
+		
 	}
 
 	@Override
